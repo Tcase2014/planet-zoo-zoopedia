@@ -6,139 +6,235 @@
   <title>My Planet Zoo Zoopedia</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+   * {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef2e8;
-      color: #273326;
-    }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #edf1e8;
+  color: #26352a;
+}
 
-    header {
-      background: #304b32;
-      color: white;
-      text-align: center;
-      padding: 35px 20px;
-    }
+/* ---------- HEADER ---------- */
 
-    header h1 {
-      margin: 0 0 8px;
-      font-size: 34px;
-    }
+header {
+  background:
+    linear-gradient(rgba(38, 65, 42, 0.88), rgba(38, 65, 42, 0.88)),
+    linear-gradient(135deg, #496b48, #263f2b);
 
-    header p {
-      margin: 0;
-      opacity: 0.85;
-    }
+  color: white;
+  text-align: center;
+  padding: 42px 20px 36px;
+}
 
-    .controls {
-      max-width: 1150px;
-      margin: 25px auto;
-      padding: 0 20px;
-    }
+header h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
 
-    .search {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid #cbd4c5;
-      border-radius: 10px;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
+header p {
+  margin: 9px 0 0;
+  font-size: 15px;
+  opacity: 0.85;
+}
 
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
+/* ---------- FILTER AREA ---------- */
 
-    select {
-      padding: 13px;
-      border: 1px solid #cbd4c5;
-      border-radius: 10px;
-      background: white;
-      font-size: 15px;
-      color: #273326;
-    }
+.controls {
+  max-width: 1200px;
+  margin: 28px auto 10px;
+  padding: 0 22px;
+}
 
-    .sort-row {
-      margin-top: 12px;
-    }
+.search {
+  width: 100%;
+  padding: 16px 19px;
+  border: 1px solid #d2dacf;
+  border-radius: 12px;
+  background: white;
+  font-size: 16px;
+  color: #26352a;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(40, 60, 40, 0.05);
+}
 
-    .animals {
-      max-width: 1150px;
-      margin: 30px auto;
-      padding: 0 20px 50px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 20px;
-    }
+.search:focus {
+  border-color: #6b8c67;
+  box-shadow: 0 0 0 3px rgba(107, 140, 103, 0.15);
+}
 
-    .animal-card {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
-    }
+.filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 13px;
+}
 
-    .animal-card:hover {
-      transform: translateY(-4px);
-    }
+select {
+  width: 100%;
+  padding: 14px 13px;
+  border: 1px solid #d2dacf;
+  border-radius: 11px;
+  background: white;
+  color: #344238;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 7px rgba(40, 60, 40, 0.04);
+}
 
-    .animal-image {
-      height: 180px;
-      background: #d8e2d2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 75px;
-      overflow: hidden;
-    }
+select:focus {
+  border-color: #6b8c67;
+}
 
-    .animal-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.sort-row {
+  margin-top: 12px;
+  max-width: 220px;
+}
 
-    .animal-info {
-      padding: 15px;
-      text-align: center;
-    }
+/* ---------- ANIMAL GRID ---------- */
 
-    .animal-info h2 {
-      margin: 0;
-      font-size: 19px;
-    }
+.animals {
+  max-width: 1200px;
+  margin: 25px auto;
+  padding: 0 22px 55px;
 
-    .animal-info p {
-      margin: 6px 0 0;
-      color: #71806d;
-      font-size: 13px;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+  gap: 22px;
+}
 
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 50px;
-      color: #71806d;
-    }
+/* ---------- ANIMAL CARD ---------- */
 
-    @media (max-width: 800px) {
-      .filters {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+.animal-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
 
-    @media (max-width: 500px) {
-      .filters {
-        grid-template-columns: 1fr;
-      }
-    }
+  box-shadow:
+    0 3px 12px rgba(35, 55, 38, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  border: 1px solid rgba(50, 75, 55, 0.06);
+}
+
+.animal-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 9px 24px rgba(35, 55, 38, 0.14);
+}
+
+/* ---------- ANIMAL IMAGE ---------- */
+
+.animal-image {
+  height: 205px;
+  background: #dce5d7;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.animal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: transform 0.3s ease;
+}
+
+.animal-card:hover .animal-image img {
+  transform: scale(1.04);
+}
+
+.animal-image span {
+  font-size: 72px;
+}
+
+/* ---------- ANIMAL INFORMATION ---------- */
+
+.animal-info {
+  padding: 17px 15px 18px;
+  text-align: center;
+}
+
+.animal-info h2 {
+  margin: 0;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  color: #29382d;
+}
+
+.animal-info p {
+  margin: 7px 0 0;
+
+  color: #718070;
+  font-size: 13px;
+}
+
+/* ---------- NO RESULTS ---------- */
+
+.no-results {
+  grid-column: 1 / -1;
+
+  text-align: center;
+  padding: 70px 20px;
+
+  color: #718070;
+}
+
+.no-results h2 {
+  margin-bottom: 8px;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 850px) {
+
+  .filters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  header h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 520px) {
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .animals {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .animal-image {
+    height: 150px;
+  }
+
+  .animal-info h2 {
+    font-size: 16px;
+  }
+
+  header h1 {
+    font-size: 28px;
+  }
+}
   </style>
 </head>
 
