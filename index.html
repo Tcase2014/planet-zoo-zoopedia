@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Planet Zoo Zoopedia</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2e8;
+      color: #273326;
+    }
+
+    header {
+      background: #304b32;
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    .controls {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 20px;
+    }
+
+    .search {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #cbd4c5;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    select {
+      padding: 13px;
+      border: 1px solid #cbd4c5;
+      border-radius: 10px;
+      background: white;
+      font-size: 15px;
+      color: #273326;
+    }
+
+    .animals {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 20px;
+    }
+
+    .animal-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+
+    .animal-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .animal-image {
+      height: 170px;
+      background: #d8e2d2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 75px;
+    }
+
+    .animal-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .animal-info h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .animal-info p {
+      margin: 6px 0 0;
+      color: #71806d;
+      font-size: 13px;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px;
+      color: #71806d;
+    }
+
+    @media (max-width: 650px) {
+      .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🐾 My Planet Zoo Zoopedia</h1>
+    <p>Explore your animals</p>
+  </header>
+
+  <div class="controls">
+
+    <input
+      type="text"
+      id="search"
+      class="search"
+      placeholder="🔍 Search animals..."
+    >
+
+    <div class="filters">
+
+      <select id="typeFilter">
+        <option value="">Animal Type</option>
+        <option value="Big Cat">Big Cats</option>
+        <option value="Hoofstock">Hoofstock</option>
+        <option value="Primate">Primates</option>
+        <option value="Bear">Bears</option>
+      </select>
+
+      <select id="continentFilter">
+        <option value="">Continent</option>
+        <option value="Africa">Africa</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+      </select>
+
+      <select id="biomeFilter">
+        <option value="">Biome</option>
+        <option value="Tropical">Tropical</option>
+        <option value="Grassland">Grassland</option>
+        <option value="Desert">Desert</option>
+        <option value="Temperate">Temperate</option>
+        <option value="Taiga">Taiga</option>
+      </select>
+
+    </div>
+  </div>
+
+  <main class="animals" id="animalGrid"></main>
+
+  <script>
+
+    const animals = [
+
+      {
+        name: "Lion",
+        icon: "🦁",
+        type: "Big Cat",
+        continent: "Africa",
+        biome: "Grassland"
+      },
+
+      {
+        name: "Tiger",
+        icon: "🐅",
+        type: "Big Cat",
+        continent: "Asia",
+        biome: "Tropical"
+      },
+
+      {
+        name: "Leopard",
+        icon: "🐆",
+        type: "Big Cat",
+        continent: "Africa",
+        biome: "Tropical"
+      },
+
+      {
+        name: "Giraffe",
+        icon: "🦒",
+        type: "Hoofstock",
+        continent: "Africa",
+        biome: "Grassland"
+      },
+
+      {
+        name: "Zebra",
+        icon: "🦓",
+        type: "Hoofstock",
+        continent: "Africa",
+        biome: "Grassland"
+      },
+
+      {
+        name: "Elephant",
+        icon: "🐘",
+        type: "Hoofstock",
+        continent: "Africa",
+        biome: "Tropical"
+      },
+
+      {
+        name: "Gorilla",
+        icon: "🦍",
+        type: "Primate",
+        continent: "Africa",
+        biome: "Tropical"
+      },
+
+      {
+        name: "Polar Bear",
+        icon: "🐻‍❄️",
+        type: "Bear",
+        continent: "North America",
+        biome: "Taiga"
+      }
+
+    ];
+
+    const grid = document.getElementById("animalGrid");
+    const search = document.getElementById("search");
+    const typeFilter = document.getElementById("typeFilter");
+    const continentFilter = document.getElementById("continentFilter");
+    const biomeFilter = document.getElementById("biomeFilter");
+
+    function displayAnimals() {
+
+      const searchText = search.value.toLowerCase();
+      const selectedType = typeFilter.value;
+      const selectedContinent = continentFilter.value;
+      const selectedBiome = biomeFilter.value;
+
+      const filteredAnimals = animals.filter(animal => {
+
+        const matchesSearch =
+          animal.name.toLowerCase().includes(searchText);
+
+        const matchesType =
+          !selectedType || animal.type === selectedType;
+
+        const matchesContinent =
+          !selectedContinent || animal.continent === selectedContinent;
+
+        const matchesBiome =
+          !selectedBiome || animal.biome === selectedBiome;
+
+        return (
+          matchesSearch &&
+          matchesType &&
+          matchesContinent &&
+          matchesBiome
+        );
+
+      });
+
+      grid.innerHTML = "";
+
+      if (filteredAnimals.length === 0) {
+
+        grid.innerHTML = `
+          <div class="no-results">
+            <h2>No animals found</h2>
+            <p>Try changing your filters.</p>
+          </div>
+        `;
+
+        return;
+      }
+
+      filteredAnimals.forEach(animal => {
+
+        const card = document.createElement("div");
+
+        card.className = "animal-card";
+
+        card.innerHTML = `
+          <div class="animal-image">
+            ${animal.icon}
+          </div>
+
+          <div class="animal-info">
+            <h2>${animal.name}</h2>
+            <p>${animal.type}</p>
+          </div>
+        `;
+
+        grid.appendChild(card);
+
+      });
+    }
+
+    search.addEventListener("input", displayAnimals);
+    typeFilter.addEventListener("change", displayAnimals);
+    continentFilter.addEventListener("change", displayAnimals);
+    biomeFilter.addEventListener("change", displayAnimals);
+
+    displayAnimals();
+
+  </script>
+
+</body>
+</html>
