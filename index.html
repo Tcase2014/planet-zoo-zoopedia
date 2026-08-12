@@ -35,7 +35,7 @@
     }
 
     .controls {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: 25px auto;
       padding: 0 20px;
     }
@@ -51,7 +51,7 @@
 
     .filters {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
 
@@ -64,8 +64,12 @@
       color: #273326;
     }
 
+    .sort-row {
+      margin-top: 12px;
+    }
+
     .animals {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: 30px auto;
       padding: 0 20px 50px;
       display: grid;
@@ -86,12 +90,19 @@
     }
 
     .animal-image {
-      height: 170px;
+      height: 180px;
       background: #d8e2d2;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 75px;
+      overflow: hidden;
+    }
+
+    .animal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .animal-info {
@@ -117,7 +128,13 @@
       color: #71806d;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 800px) {
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
       .filters {
         grid-template-columns: 1fr;
       }
@@ -143,12 +160,39 @@
 
     <div class="filters">
 
-      <select id="typeFilter">
-        <option value="">Animal Type</option>
-        <option value="Big Cat">Big Cats</option>
+      <select id="classFilter">
+        <option value="">Animal Class</option>
+        <option value="Mammals">Mammals</option>
+        <option value="Birds">Birds</option>
+        <option value="Reptiles">Reptiles</option>
+        <option value="Amphibians">Amphibians</option>
+        <option value="Fish">Fish</option>
+        <option value="Invertebrates">Invertebrates</option>
+      </select>
+
+      <select id="groupFilter">
+        <option value="">Animal Group</option>
+        <option value="Big Cats">Big Cats</option>
+        <option value="Primates">Primates</option>
         <option value="Hoofstock">Hoofstock</option>
-        <option value="Primate">Primates</option>
-        <option value="Bear">Bears</option>
+        <option value="Marsupials">Marsupials</option>
+        <option value="Rodents">Rodents</option>
+        <option value="Raptors">Raptors</option>
+        <option value="Waterfowl">Waterfowl</option>
+        <option value="Parrots">Parrots</option>
+        <option value="Flightless Birds">Flightless Birds</option>
+        <option value="Lizards">Lizards</option>
+        <option value="Crocodilians">Crocodilians</option>
+        <option value="Snakes">Snakes</option>
+        <option value="Turtles / Tortoises">Turtles / Tortoises</option>
+        <option value="Frogs">Frogs</option>
+        <option value="Toads">Toads</option>
+        <option value="Salamanders">Salamanders</option>
+        <option value="Newts">Newts</option>
+        <option value="Insects">Insects</option>
+        <option value="Arachnids">Arachnids</option>
+        <option value="Crustaceans">Crustaceans</option>
+        <option value="Molluscs">Molluscs</option>
       </select>
 
       <select id="continentFilter">
@@ -158,129 +202,268 @@
         <option value="Europe">Europe</option>
         <option value="North America">North America</option>
         <option value="South America">South America</option>
+        <option value="Oceania">Oceania</option>
       </select>
 
-      <select id="biomeFilter">
-        <option value="">Biome</option>
-        <option value="Tropical">Tropical</option>
-        <option value="Grassland">Grassland</option>
-        <option value="Desert">Desert</option>
-        <option value="Temperate">Temperate</option>
-        <option value="Taiga">Taiga</option>
+      <select id="dietFilter">
+        <option value="">Diet</option>
+        <option value="Herbivore">Herbivore</option>
+        <option value="Carnivore">Carnivore</option>
+        <option value="Omnivore">Omnivore</option>
+        <option value="Insectivore">Insectivore</option>
+        <option value="Piscivore">Piscivore</option>
       </select>
 
     </div>
+
+    <div class="sort-row">
+
+      <select id="sortFilter">
+        <option value="az">Sort: A → Z</option>
+        <option value="za">Sort: Z → A</option>
+      </select>
+
+    </div>
+
   </div>
 
   <main class="animals" id="animalGrid"></main>
 
   <script>
 
+    /*
+      ==========================================================
+      YOUR ANIMALS
+      ==========================================================
+
+      To add an animal later, copy one of these entries.
+
+      image:
+      Leave blank for now if you don't have an image yet.
+
+      continents:
+      You can put MORE THAN ONE continent here.
+
+      groups:
+      You can also give an animal MORE THAN ONE group if needed.
+
+      diet:
+      You can give an animal MORE THAN ONE diet if appropriate.
+    */
+
     const animals = [
 
       {
-        name: "Lion",
-        icon: "🦁",
-        type: "Big Cat",
-        continent: "Africa",
-        biome: "Grassland"
+        name: "African Lion",
+        image: "",
+        class: "Mammals",
+        groups: ["Big Cats"],
+        continents: ["Africa"],
+        diet: ["Carnivore"]
       },
 
       {
-        name: "Tiger",
-        icon: "🐅",
-        type: "Big Cat",
-        continent: "Asia",
-        biome: "Tropical"
+        name: "Bengal Tiger",
+        image: "",
+        class: "Mammals",
+        groups: ["Big Cats"],
+        continents: ["Asia"],
+        diet: ["Carnivore"]
       },
 
       {
         name: "Leopard",
-        icon: "🐆",
-        type: "Big Cat",
-        continent: "Africa",
-        biome: "Tropical"
+        image: "",
+        class: "Mammals",
+        groups: ["Big Cats"],
+        continents: ["Africa", "Asia"],
+        diet: ["Carnivore"]
       },
 
       {
         name: "Giraffe",
-        icon: "🦒",
-        type: "Hoofstock",
-        continent: "Africa",
-        biome: "Grassland"
-      },
-
-      {
-        name: "Zebra",
-        icon: "🦓",
-        type: "Hoofstock",
-        continent: "Africa",
-        biome: "Grassland"
-      },
-
-      {
-        name: "Elephant",
-        icon: "🐘",
-        type: "Hoofstock",
-        continent: "Africa",
-        biome: "Tropical"
+        image: "",
+        class: "Mammals",
+        groups: ["Hoofstock"],
+        continents: ["Africa"],
+        diet: ["Herbivore"]
       },
 
       {
         name: "Gorilla",
-        icon: "🦍",
-        type: "Primate",
-        continent: "Africa",
-        biome: "Tropical"
+        image: "",
+        class: "Mammals",
+        groups: ["Primates"],
+        continents: ["Africa"],
+        diet: ["Herbivore"]
       },
 
       {
-        name: "Polar Bear",
-        icon: "🐻‍❄️",
-        type: "Bear",
-        continent: "North America",
-        biome: "Taiga"
+        name: "Red Kangaroo",
+        image: "",
+        class: "Mammals",
+        groups: ["Marsupials"],
+        continents: ["Oceania"],
+        diet: ["Herbivore"]
+      },
+
+      {
+        name: "Capybara",
+        image: "",
+        class: "Mammals",
+        groups: ["Rodents"],
+        continents: ["South America"],
+        diet: ["Herbivore"]
+      },
+
+      {
+        name: "Bald Eagle",
+        image: "",
+        class: "Birds",
+        groups: ["Raptors"],
+        continents: ["North America"],
+        diet: ["Carnivore"]
+      },
+
+      {
+        name: "Macaw",
+        image: "",
+        class: "Birds",
+        groups: ["Parrots"],
+        continents: ["South America"],
+        diet: ["Herbivore"]
+      },
+
+      {
+        name: "Komodo Dragon",
+        image: "",
+        class: "Reptiles",
+        groups: ["Lizards"],
+        continents: ["Asia"],
+        diet: ["Carnivore"]
+      },
+
+      {
+        name: "American Alligator",
+        image: "",
+        class: "Reptiles",
+        groups: ["Crocodilians"],
+        continents: ["North America"],
+        diet: ["Carnivore"]
+      },
+
+      {
+        name: "Green Anaconda",
+        image: "",
+        class: "Reptiles",
+        groups: ["Snakes"],
+        continents: ["South America"],
+        diet: ["Carnivore"]
+      },
+
+      {
+        name: "Giant Tortoise",
+        image: "",
+        class: "Reptiles",
+        groups: ["Turtles / Tortoises"],
+        continents: ["Africa"],
+        diet: ["Herbivore"]
+      },
+
+      {
+        name: "Red-Eyed Tree Frog",
+        image: "",
+        class: "Amphibians",
+        groups: ["Frogs"],
+        continents: ["North America", "South America"],
+        diet: ["Insectivore"]
+      },
+
+      {
+        name: "Giant Stick Insect",
+        image: "",
+        class: "Invertebrates",
+        groups: ["Insects"],
+        continents: ["Oceania"],
+        diet: ["Herbivore"]
       }
 
     ];
 
+
     const grid = document.getElementById("animalGrid");
+
     const search = document.getElementById("search");
-    const typeFilter = document.getElementById("typeFilter");
+
+    const classFilter = document.getElementById("classFilter");
+
+    const groupFilter = document.getElementById("groupFilter");
+
     const continentFilter = document.getElementById("continentFilter");
-    const biomeFilter = document.getElementById("biomeFilter");
+
+    const dietFilter = document.getElementById("dietFilter");
+
+    const sortFilter = document.getElementById("sortFilter");
+
 
     function displayAnimals() {
 
       const searchText = search.value.toLowerCase();
-      const selectedType = typeFilter.value;
-      const selectedContinent = continentFilter.value;
-      const selectedBiome = biomeFilter.value;
 
-      const filteredAnimals = animals.filter(animal => {
+      const selectedClass = classFilter.value;
+
+      const selectedGroup = groupFilter.value;
+
+      const selectedContinent = continentFilter.value;
+
+      const selectedDiet = dietFilter.value;
+
+      const sortOrder = sortFilter.value;
+
+
+      let filteredAnimals = animals.filter(animal => {
 
         const matchesSearch =
           animal.name.toLowerCase().includes(searchText);
 
-        const matchesType =
-          !selectedType || animal.type === selectedType;
+        const matchesClass =
+          !selectedClass || animal.class === selectedClass;
+
+        const matchesGroup =
+          !selectedGroup ||
+          animal.groups.includes(selectedGroup);
 
         const matchesContinent =
-          !selectedContinent || animal.continent === selectedContinent;
+          !selectedContinent ||
+          animal.continents.includes(selectedContinent);
 
-        const matchesBiome =
-          !selectedBiome || animal.biome === selectedBiome;
+        const matchesDiet =
+          !selectedDiet ||
+          animal.diet.includes(selectedDiet);
+
 
         return (
           matchesSearch &&
-          matchesType &&
+          matchesClass &&
+          matchesGroup &&
           matchesContinent &&
-          matchesBiome
+          matchesDiet
         );
 
       });
 
+
+      filteredAnimals.sort((a, b) => {
+
+        return sortOrder === "az"
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+
+      });
+
+
       grid.innerHTML = "";
+
 
       if (filteredAnimals.length === 0) {
 
@@ -292,7 +475,9 @@
         `;
 
         return;
+
       }
+
 
       filteredAnimals.forEach(animal => {
 
@@ -300,26 +485,52 @@
 
         card.className = "animal-card";
 
+
+        const imageContent = animal.image
+
+          ? `<img src="${animal.image}" alt="${animal.name}">`
+
+          : `<span>🐾</span>`;
+
+
         card.innerHTML = `
+
           <div class="animal-image">
-            ${animal.icon}
+            ${imageContent}
           </div>
 
           <div class="animal-info">
+
             <h2>${animal.name}</h2>
-            <p>${animal.type}</p>
+
+            <p>
+              ${animal.class} • ${animal.groups.join(", ")}
+            </p>
+
           </div>
+
         `;
+
 
         grid.appendChild(card);
 
       });
+
     }
 
+
     search.addEventListener("input", displayAnimals);
-    typeFilter.addEventListener("change", displayAnimals);
+
+    classFilter.addEventListener("change", displayAnimals);
+
+    groupFilter.addEventListener("change", displayAnimals);
+
     continentFilter.addEventListener("change", displayAnimals);
-    biomeFilter.addEventListener("change", displayAnimals);
+
+    dietFilter.addEventListener("change", displayAnimals);
+
+    sortFilter.addEventListener("change", displayAnimals);
+
 
     displayAnimals();
 
